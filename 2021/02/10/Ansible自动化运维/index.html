@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   
   
-  <title>Ansible自动化运维 | Hexo</title>
+  <title>Ansible自动化运维 | Cqm&#39;s Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一、Ansible简介ansbile是一个IT自动化的配置管理工具，自动化主要体现在Ansible集成了丰富的模块，可以通过一个命令完成一系列的操作，进而减少运维重复性的工作和维护成本，提高工作效率。  1.1 为什么需要ansible思考：假设我们要在10台服务器上安装并运行nginx，要如何操作？  ssh远程登录到服务器 执行yum -y install nginx 执行systemctl">
+  <meta name="description" content="一、Ansible简介ansbile是一个IT自动化的配置管理工具，自动化主要体现在Ansible集成了丰富的模块，可以通过一个命令完成一系列的操作，进而减少运维重复性的工作和维护成本，提高工作效率。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ansible自动化运维">
 <meta property="og:url" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、Ansible简介ansbile是一个IT自动化的配置管理工具，自动化主要体现在Ansible集成了丰富的模块，可以通过一个命令完成一系列的操作，进而减少运维重复性的工作和维护成本，提高工作效率。  1.1 为什么需要ansible思考：假设我们要在10台服务器上安装并运行nginx，要如何操作？  ssh远程登录到服务器 执行yum -y install nginx 执行systemctl">
+<meta property="og:site_name" content="Cqm&#39;s Hexo">
+<meta property="og:description" content="一、Ansible简介ansbile是一个IT自动化的配置管理工具，自动化主要体现在Ansible集成了丰富的模块，可以通过一个命令完成一系列的操作，进而减少运维重复性的工作和维护成本，提高工作效率。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/ansible%E5%9B%BE%E6%A0%87.jpg">
 <meta property="og:image" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/ansbile%E6%9E%B6%E6%9E%84.png">
@@ -27,12 +27,11 @@
 <meta property="og:image" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/kod%E5%AE%89%E8%A3%85%E5%9B%9B.png">
 <meta property="og:image" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/kod%E5%AE%89%E8%A3%85%E4%BA%94.png">
 <meta property="article:published_time" content="2021-02-10T06:13:37.000Z">
-<meta property="article:modified_time" content="2021-02-10T06:14:31.132Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2021-02-10T07:06:12.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/ansible%E5%9B%BE%E6%A0%87.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Cqm's Hexo" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -60,7 +59,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">Cqm&#39;s Hexo</a>
       </h1>
       
     </div>
@@ -111,6 +110,8 @@
       
         <h2 id="一、Ansible简介"><a href="#一、Ansible简介" class="headerlink" title="一、Ansible简介"></a>一、Ansible简介</h2><p>ansbile是一个IT自动化的配置管理工具，自动化主要体现在Ansible集成了丰富的模块，可以通过一个命令完成一系列的操作，进而减少运维重复性的工作和维护成本，提高工作效率。</p>
 <p><img src="/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/ansible%E5%9B%BE%E6%A0%87.jpg" alt="ansible图标"></p>
+<a id="more"></a>
+
 <h3 id="1-1-为什么需要ansible"><a href="#1-1-为什么需要ansible" class="headerlink" title="1.1 为什么需要ansible"></a>1.1 为什么需要ansible</h3><p>思考：假设我们要在10台服务器上安装并运行nginx，要如何操作？</p>
 <ol>
 <li>ssh远程登录到服务器</li>
@@ -491,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" data-id="ckkz1r9p50001qepvfn0l6sc8" data-title="Ansible自动化运维" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/02/10/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" data-id="ckkz43fqp0001x8pvegrs8tnx" data-title="Ansible自动化运维" class="article-share-link">Share</a>
       
       
       
@@ -562,7 +563,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2021 John Doe<br>
+      &copy; 2021 Cqm&#39;s Hexo<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
