@@ -29,276 +29,443 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/logo.jpg" alt="Warner&#039;s Wiki" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-02-18T08:06:41.000Z" title="2/18/2024, 4:06:41 PM">2024-02-18</time></span><span class="level-item">Updated&nbsp;<time dateTime="2024-02-18T11:05:34.526Z" title="2/18/2024, 7:05:34 PM">2024-02-18</time></span><span class="level-item">31 minutes read (About 4642 words)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/02/18/prometheus/">Prometheus</a></p><div class="content"><p><img src="/2024/02/18/prometheus/prometheus_logo.jpg" alt="prometheus_logo"></p>
-<p>Prometheus是一个开源的<strong>云原生</strong>监控系统和时间序列数据库。</p>
-<h2 id="一、Prometheus概述"><a href="#一、Prometheus概述" class="headerlink" title="一、Prometheus概述"></a>一、Prometheus概述</h2><p>Prometheus 作为新一代的云原生监控系统，目前已经有超过 650+位贡献者参与到 Prometheus 的研发工作上，并且超过 120+项的第三方集成。</p>
-<h3 id="1-1-Prometheus的优点"><a href="#1-1-Prometheus的优点" class="headerlink" title="1.1 Prometheus的优点"></a>1.1 Prometheus的优点</h3><ol>
-<li><strong>提供多维度数据模型和灵活的查询方式</strong>，通过将监控指标关联多个 tag，来将监控数据进行任意维度的组合，并且提供简单的 PromQL 查询方式，还提供 HTTP 查询接口，可以很方便地结合 Grafana 等 GUI 组件展示数据。</li>
-<li>在不依赖外部存储的情况下，<strong>支持服务器节点的本地存储</strong>，通过 Prometheus 自带的时序数据库，可以完成每秒千万级的数据存储；不仅如此，在保存大量历史数据的场景中，Prometheus 可以对接第三方时序数据库和 OpenTSDB 等。</li>
-<li><strong>定义了开放指标数据标准</strong>，以基于 HTTP 的 Pull 方式采集时序数据，只有实现了 Prometheus 监控数据才可以被 Prometheus 采集、汇总、并支持 Push 方式向中间网关推送时序列数据，能更加灵活地应对多种监控场景。</li>
-<li><strong>支持通过静态文件配置和动态发现机制发现监控对象，自动完成数据采集</strong>。</li>
-<li>Prometheus 目前已经支持 Kubernetes、etcd、Consul 等多种服务发现机制。<strong>易于维护</strong>，可以通过二进制文件直接启动，并且提供了容器化部署镜像。</li>
-<li><strong>支持数据的分区采样和联邦部署，支持大规模集群监控。</strong></li>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/logo.jpg" alt="Warner&#039;s Wiki" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-02-18T08:06:41.000Z" title="2/18/2024, 4:06:41 PM">2024-02-18</time></span><span class="level-item">Updated&nbsp;<time dateTime="2024-02-18T11:01:00.205Z" title="2/18/2024, 7:01:00 PM">2024-02-18</time></span><span class="level-item">28 minutes read (About 4127 words)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/02/18/redis/">Redis</a></p><div class="content"><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>REmote DIctionary Server（Redis）是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是跨平台的非关系型数据库。</p>
+<p><img src="/2024/02/18/redis/redis_logo.jpeg" alt="redis_logo"></p>
+<p>Redis 就是一款 NoSQL，而 NoSQL 就是指非关系型数据库，主要分为四种：</p>
+<ol>
+<li>键值型：Redis</li>
+<li>文档型：ElasticSearch、Mongdb</li>
+<li>面向列：Hbase</li>
+<li>图形化：Neo4j</li>
 </ol>
-<h3 id="1-2-Prometheus基本组件"><a href="#1-2-Prometheus基本组件" class="headerlink" title="1.2 Prometheus基本组件"></a>1.2 Prometheus基本组件</h3><ol>
-<li>Prometheus Server：是 Prometheus 组件中的核心部分，负责实现对监控数据的获取，存储以及查询。收集到的数据统称为<strong>metrics</strong>。</li>
-<li>Push Gateway：当网络需求无法直接满足时，就可以利用 Push Gateway 来进行中转。可以通过 Push Gateway 将内部网络的监控数据主动 <strong>Push</strong> 到 Gateway 当中。而 Prometheus Server 则可以采用同样 <strong>Pull</strong> 的方式从 Push Gateway 中获取到监控数据。</li>
-<li>Exporter：主要用来采集数据，并通过 HTTP 服务的形式暴露给 Prometheus Server，Prometheus Server 通过访问该 Exporter 提供的接口，即可获取到需要采集的监控数据。</li>
-<li>Alert manager：管理告警，主要是负责实现报警功能。现在grafana也能实现报警功能，所以也慢慢被取代。</li>
+<h2 id="二、Redis基础"><a href="#二、Redis基础" class="headerlink" title="二、Redis基础"></a>二、Redis基础</h2><h3 id="2-1-Redis安装"><a href="#2-1-Redis安装" class="headerlink" title="2.1 Redis安装"></a>2.1 Redis安装</h3><ol>
+<li>通过 docker-compose 安装 redis</li>
 </ol>
-<p><img src="/2024/02/18/prometheus/Prometheus%E6%9E%B6%E6%9E%84.png" alt="Prometheus架构"></p>
-<h3 id="1-3-Prometheus数据类型"><a href="#1-3-Prometheus数据类型" class="headerlink" title="1.3 Prometheus数据类型"></a>1.3 Prometheus数据类型</h3><ol>
-<li>Counter（计数器类型）：Counter类型的指标的工作方式和计数器一样，只增不减（除非系统发生了重置）。</li>
-<li>Gauge（仪表盘类型）：Gauge是可增可减的指标类，可以用于反应当前应用的状态。</li>
-<li>Histogram（直方图类型）：主要用于表示一段时间范围内对数据进行采样（通常是请求持续时间或响应大小），并能够对其指定区间以及总数进行统计，通常它采集的数据展示为直方图。</li>
-<li>Summary（摘要类型）：主要用于表示一段时间内数据采样结果（通常是请求持续时间或响应大小）。</li>
-</ol>
-<h2 id="二、Prometheus安装"><a href="#二、Prometheus安装" class="headerlink" title="二、Prometheus安装"></a>二、Prometheus安装</h2><h3 id="2-1-Prometheus-server安装"><a href="#2-1-Prometheus-server安装" class="headerlink" title="2.1 Prometheus server安装"></a>2.1 Prometheus server安装</h3><ol>
-<li>Prometheus安装较为简单，下载解压即可</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.26.0-rc.0/prometheus-2.26.0-rc.0.linux-amd64.tar.gz</span><br><span class="line">tar -xf prometheus-2.26.0-rc.0.linux-amd64.tar.gz</span><br><span class="line">mv prometheus-2.26.0-rc.0.linux-amd64 prometheus</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">6379</span><span class="string">:6379</span></span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>prometheus.yml配置文件</li>
+<li>进入容器内部测试 redis</li>
 </ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局配置</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">15s</span> <span class="comment"># 设置抓取间隔，默认为1分钟</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span> <span class="comment"># 估算规则的默认周期，每15秒计算一次规则，默认1分钟</span></span><br><span class="line">  <span class="comment"># scrape_timeout # 默认抓取超时，默认为10s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 报警配置</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="comment"># - alertmanager:9093</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 规则文件列表，使用&#x27;evaluation_interval&#x27; 参数去抓取</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="comment"># - &quot;first_rules.yml&quot;</span></span><br><span class="line">  <span class="comment"># - &quot;second_rules.yml&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抓取配置列表</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># 任务名称</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;prometheus&#x27;</span></span><br><span class="line">    <span class="comment"># 要被监控的客户端</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;localhost:9090&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">连接redis</span></span><br><span class="line">redis-cli</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">set</span>新建键值对</span></span><br><span class="line">set key value</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">get获取键值</span></span><br><span class="line">get key</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>创建Prometheus的用户及数据存储目录</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">groupadd prometheus</span><br><span class="line">useradd -g prometheus -s /sbin/nologin prometheus</span><br><span class="line">mkdir /root/prometheus/data</span><br><span class="line">chown -R prometheus:prometheus /root/prometheus</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>Prometheus的启动很简单，只需要直接启动解压目录的二进制文件Prometheus即可，但是为了更加方便对Prometheus进行管理，这里编写脚本或者使用screen工具来进行启动</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /root/prometheus/start.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">prometheus_dir=/root/prometheus</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;prometheus_dir&#125;/prometheus --config.file=<span class="variable">$&#123;prometheus_dir&#125;</span>/prometheus.yml --storage.tsdb.path=<span class="variable">$&#123;prometheus_dir&#125;</span>/data --storage.tsdb.retention.time=24h --web.enable-lifecycle --storage.tsdb.no-lockfile</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--config.file:指定配置文件路径</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--storage.tsdb.path:指定tsdb路径</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--storage.tsdb.retention.time:指定数据存储时间</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--web.enable-lifecycle:类似nginx的reload功能</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--storage.tsdb.no-lockfile:如果用k8s的deployment管理需加此项</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>启动Prometheus后访问</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">nohup</span>英文全称no hang up（不挂起），用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行。</span></span><br><span class="line">nohup sh start.sh 2&gt;&amp;1 &gt; prometheus.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/Prometheus%E5%AE%89%E8%A3%85%E4%B8%80.png" alt="Prometheus安装一"></p>
-<ol start="6">
-<li>用screen工具进行启动</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yum -y install screen</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入后台</span></span><br><span class="line">screen</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行脚本</span></span><br><span class="line">/root/prometheus/prometheus --config.file=/root/prometheus/prometheus.yml --storage.tsdb.path=/root/prometheus/data --storage.tsdb.retention.time=24h --web.enable-lifecycle --storage.tsdb.no-lockfile</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输入CTRL + A + D撤回前台</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看后台运行的脚本</span></span><br><span class="line">screen -ls</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">返回后台</span></span><br><span class="line">screen -r 后台id</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除后台</span></span><br><span class="line">screen -S 后台id -X quit</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-node-exporter安装"><a href="#2-2-node-exporter安装" class="headerlink" title="2.2 node exporter安装"></a>2.2 node exporter安装</h3><p>在Prometheus架构中，exporter是负责收集数据并将信息汇报给Prometheus Server的组件。官方提供了node_exporter内置了对主机系统的基础监控。</p>
-<ol>
-<li>下载node exporter</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz</span><br><span class="line">tar -xf node_exporter-1.1.2.linux-amd64.tar.gz</span><br><span class="line">mv node_exporter-1.1.2.linux-amd64.tar.gz node_exporter</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在prometheus.yml中添加被监控主机</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;localhost:9090&#x27;</span>,<span class="string">&#x27;localhost:9100&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>后台启动exporter和重启prometheus</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen</span><br><span class="line">./root/node_exporter/node_exporter</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>通过curl命令获取收集到的数据key</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:9100/metrics</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>用其中的一个key在Prometheus测试是否被监控</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/node_exporter%E6%B5%8B%E8%AF%95.png" alt="node_exporter测试"></p>
-<h2 id="三、Prometheus命令行的使用"><a href="#三、Prometheus命令行的使用" class="headerlink" title="三、Prometheus命令行的使用"></a>三、Prometheus命令行的使用</h2><h3 id="3-1-计算cpu使用率"><a href="#3-1-计算cpu使用率" class="headerlink" title="3.1 计算cpu使用率"></a>3.1 计算cpu使用率</h3><p><img src="/2024/02/18/prometheus/%E8%AE%A1%E7%AE%97cpu%E4%BD%BF%E7%94%A8%E7%8E%87%E4%B8%80.png" alt="计算cpu使用率一"></p>
-<p>通过上图可以知道，linux的cpu使用是分为很多种状态的，例如用户态user，空闲态idle。</p>
-<p>要计算cpu的使用率有两种粗略的公式：</p>
-<ol>
-<li>除去idle状态的所有cpu状态时间之和 &#x2F; cpu时间总和</li>
-<li>100% - （idle状态 &#x2F; cpu时间总和）</li>
-</ol>
-<p>但这两种方式都存在两个问题：</p>
-<ol>
-<li>如何计算某一时间段的cpu使用率？例如精确到每一分钟。</li>
-<li>实际工作中cpu大多数都是多核的，node exporter截取到的数据精确到了每个核，如何监控所有核加起来的数据？</li>
-</ol>
-<p>Prometheus提供了许多的函数，其中 increase 和 sum 就很好的解决了以上两个问题。</p>
-<ol>
-<li>提取cpu的key，即node_cpu_seconds_total</li>
-<li>把idle空闲时间和总时间过滤出来，在Prometheus中使用{}进行过滤</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>使用increase函数取一分钟内的增量</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">increase(node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;[1m])</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>使用sum函数将每个核的数整合起来</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(increase(node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;[1m]))</span><br></pre></td></tr></table></figure>
-
-<p>到这里又出现一个问题，sum函数会将所有数据整合起来，不光将一台机器的所有cpu加到一起，也将所有机器的cpu都加到了一起，最终显示的是集群cpu的总平均值，by(instance)可以解决这个问题。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(increase(node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;[1m])) by(instance)</span><br></pre></td></tr></table></figure>
-
-<p>这样就得到了空闲时cpu的数据了，用上边第一个公式即可得到单台主机cpu在一分钟内的使用率。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(1 - ((sum(increase(node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;[1m])) by(instance)) / (sum(increase(node_cpu_seconds_total[1m])) by(instance)))) * 100</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E8%AE%A1%E7%AE%97cpu%E4%BD%BF%E7%94%A8%E7%8E%87%E4%BA%8C.png" alt="计算cpu使用率二"></p>
-<h3 id="3-2-计算内存使用率"><a href="#3-2-计算内存使用率" class="headerlink" title="3.2 计算内存使用率"></a>3.2 计算内存使用率</h3><p>内存使用率公式为 &#x3D; (available &#x2F; total) * 100</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E8%AE%A1%E7%AE%97%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E7%8E%87.png" alt="计算内存使用率"></p>
-<h3 id="3-3-rate函数"><a href="#3-3-rate函数" class="headerlink" title="3.3 rate函数"></a>3.3 rate函数</h3><p>rate函数是专门搭配counter类型数据使用的函数，功能是按照设置的一个时间段，取counter在这个时间段中平均每秒的增量。</p>
-<p>举个栗子，假设我们要取ens33这个网卡在一分钟内字节的接受数量，假如一分钟内接收到的是1000bytes，那么平均每秒接收到就是1000bytes &#x2F; 1m * 60s ≈ 16bytes&#x2F;s。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rate(node_network_receive_bytes_total&#123;device=&#x27;ens33&#x27;&#125;[1m])</span><br></pre></td></tr></table></figure>
-
-<p>如果是五分钟的话即为5000bytes &#x2F; 5m * 60s ≈ 16bytes&#x2F;s，结果是一样的，但曲线图就不一样了，上图为一分钟，下图为五分钟，因为五分钟的密度要更底，所以可以看到五分钟的曲线图更加平缓。</p>
-<p><img src="/2024/02/18/prometheus/rate%E5%87%BD%E6%95%B0%E4%B8%80.png" alt="rate函数一"></p>
-<p><img src="/2024/02/18/prometheus/rate%E5%87%BD%E6%95%B0%E4%BA%8C.png" alt="rate函数二"></p>
-<p>rate和increase的概念有些类似，但rate取的是一段时间增量的平均每秒数量，increase取的是一段时间增量的总量，即：</p>
+<h3 id="2-2-Redis常用命令"><a href="#2-2-Redis常用命令" class="headerlink" title="2.2 Redis常用命令"></a>2.2 Redis常用命令</h3><p>redis 的数据存储结构有以下几种：</p>
 <ul>
-<li>rate(1m)：总量 &#x2F; 60s</li>
-<li>increase(1m)：总量</li>
+<li>key-string（字符串）：一个 key 对应一个值</li>
+<li>key-hash（哈希）：一个 key 对应一个 map</li>
+<li>key-list（列表）：一个 key 对应一个列表</li>
+<li>key-set（集合）：一个 key 对应一个集合</li>
+<li>key-zset（有序集合）：一个 key 对应一个有序的集合</li>
 </ul>
-<h3 id="3-4-sum函数"><a href="#3-4-sum函数" class="headerlink" title="3.4 sum函数"></a>3.4 sum函数</h3><p>sum函数就是将收到的数据全部进行整合。</p>
-<p>假如一个集群里有20台服务器，分别为5台web服务器，10台db服务器，还有5台其他服务的服务器，这时候sum就可以分为三条曲线来代表不同功能服务器的总和数据。</p>
-<h3 id="3-5-topk函数"><a href="#3-5-topk函数" class="headerlink" title="3.5 topk函数"></a>3.5 topk函数</h3><p>topk函数的作用就是取前几位的最高值。</p>
-<p><img src="/2024/02/18/prometheus/topk%E5%87%BD%E6%95%B0%E4%B8%80.png" alt="topk函数一"></p>
-<h3 id="3-6-count函数"><a href="#3-6-count函数" class="headerlink" title="3.6 count函数"></a>3.6 count函数</h3><p>count函数的作用是把符合条件的数值进行整合。</p>
-<p>假如我们要查看集群中cpu使用率超过80%的主机数量的话</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count((1 - ((sum(increase(node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125;[1m])) by(instance)) / (sum(increase(node_cpu_seconds_total[1m])) by(instance)))) * 100 &gt; 80)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="四、Push-gateway"><a href="#四、Push-gateway" class="headerlink" title="四、Push gateway"></a>四、Push gateway</h2><p>Push gateway实际上就是一种被动推送数据的方式，与exporter主动获取不同。</p>
-<h3 id="4-1-Push-gateway安装"><a href="#4-1-Push-gateway安装" class="headerlink" title="4.1 Push gateway安装"></a>4.1 Push gateway安装</h3><ol>
-<li>下载安装Push gateway</li>
+<p><img src="/2024/02/18/redis/redis%E4%B8%80.png" alt="redis一"></p>
+<h4 id="2-2-1-string常用命令"><a href="#2-2-1-string常用命令" class="headerlink" title="2.2.1 string常用命令"></a>2.2.1 string常用命令</h4><ol>
+<li>设置值</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/pushgateway/releases/download/v1.4.0/pushgateway-1.4.0.linux-amd64.tar.gz</span><br><span class="line">tar -xf pushgateway-1.4.0.linux-amd64.tar.gz</span><br><span class="line">mv pushgateway-1.4.0.linux-amd64 pushgateway</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set key value</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>后台运行Push gateway</li>
+<li>取值</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen</span><br><span class="line">./root/pushgateway/pushgateway</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get key</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>在prometheus.yml中加上</li>
+<li>批量操作</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- job_name: &#x27;pushgateway&#x27;</span><br><span class="line">  static_configs:</span><br><span class="line">  - targets: [&#x27;localhost:9091&#x27;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mset key1 value1 key2 value2 ...</span><br><span class="line">mget key1 key2 ... </span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/02/18/prometheus/%E6%B7%BB%E5%8A%A0pushgateway.png" alt="添加pushgateway"></p>
-<h3 id="4-2-自定义编写脚本"><a href="#4-2-自定义编写脚本" class="headerlink" title="4.2 自定义编写脚本"></a>4.2 自定义编写脚本</h3><p>由于Push gateway自己本身是没有任何抓取数据的功能的，所以用户需要自行编写脚本来抓取数据。</p>
-<p>举个例子：编写脚本抓取 TCP waiting_connection 的数量</p>
-<ol>
-<li>编写自定义脚本</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取监控主机名</span></span><br><span class="line">instance_name=`hostname -f | cut -d&#x27;.&#x27; -f1`</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果主机名为localhost，则退出</span></span><br><span class="line">if [ $instance_name == &quot;localhost&quot; ]</span><br><span class="line">then</span><br><span class="line">        echo &quot;不能监控主机名为localhost的主机&quot;</span><br><span class="line">        exit 1</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取TCP CONNECTED数量</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">抓取TCP CONNECTED数量，定义为一个新key</span></span><br><span class="line">lable_tcp_connected=&quot;count_netstat_connected_connections&quot;</span><br><span class="line">count_netstat_connected_connections=`netstat -an | grep &#x27;CONNECTED&#x27; | wc -l`</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上传至pushgateway</span></span><br><span class="line">echo &quot;$lable_tcp_connected $count_netstat_connected_connections&quot; | curl --data-binary @- http://localhost:9091/metrics/job/pushgateway/instance/$instance_name</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该脚本是通过post的方式将key推送给pushgateway</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">http://localhost:9091 即推送给哪台pushgateway主机</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">job/pushgateway 即推送给prometheus.yml中定义的job为pushgateway的主机</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">instance/<span class="variable">$instance_name</span> 推送后显示的主机名</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>因为脚本都是运行一次后就结束了，可以配合crontab反复运行</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">每分钟执行一次脚本</span></span><br><span class="line">* * * * * sh /root/pushgateway/node_exporter_shell.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">每10s执行一次脚本</span></span><br><span class="line">* * * * * sh /root/pushgateway/node_exporter_shell.sh</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC.png" alt="自定义编写脚本"></p>
-<h3 id="4-3-编写抓取ping丢包和延迟时间数据"><a href="#4-3-编写抓取ping丢包和延迟时间数据" class="headerlink" title="4.3 编写抓取ping丢包和延迟时间数据"></a>4.3 编写抓取ping丢包和延迟时间数据</h3><p>在node_exporter_shell.sh中加入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取ping某网站丢包率和延迟时间</span></span><br><span class="line"></span><br><span class="line">site_address=&quot;www.baidu.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取丢包率和延迟时间，定义为两个新key</span></span><br><span class="line">lable_ping_packet_loss=&quot;ping_packet_loss&quot;</span><br><span class="line">ping_packet_loss_test=`ping -c3 $site_address | awk &#x27;NR==7&#123;print $6&#125;&#x27;`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">字符串截取，%?为去除最后一个字符</span></span><br><span class="line">ping_packet_loss=`echo $&#123;ping_packet_loss_test%?&#125;`</span><br><span class="line"></span><br><span class="line">lable_ping_time=&quot;ping_time&quot;</span><br><span class="line">ping_time_test=`ping -c3 $site_address | awk &#x27;NR==7&#123;print $10&#125;&#x27;`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">字符串截取，%??为去除最后两个字符</span></span><br><span class="line">ping_time=`echo $&#123;ping_time_test%??&#125;`</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上传至push_ping_timegateway</span></span><br><span class="line">echo &quot;$lable_ping_packet_loss $ping_packet_loss&quot; | curl --data-binary @- http://localhost:9091/metrics/job/pushgateway/instance/$instance_name</span><br><span class="line"></span><br><span class="line">echo &quot;$lable_ping_time $ping_time&quot; | curl --data-binary @- http://localhost:9091/metrics/job/pushgateway/instance/$instance_name</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="五、Grafana的使用"><a href="#五、Grafana的使用" class="headerlink" title="五、Grafana的使用"></a>五、Grafana的使用</h2><p>Grafana是一款用Go语言开发的开源数据可视化工具，可以做数据监控和数据统计，带有告警功能。</p>
-<h3 id="5-1-Grafana安装"><a href="#5-1-Grafana安装" class="headerlink" title="5.1 Grafana安装"></a>5.1 Grafana安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.grafana.com/oss/release/grafana-7.5.1-1.x86_64.rpm</span><br><span class="line">yum -y install grafana-7.5.1-1.x86_64.rpm</span><br><span class="line">systemctl start grafana-server</span><br><span class="line">systemctl enable grafana-server</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-2-设置数据源"><a href="#5-2-设置数据源" class="headerlink" title="5.2 设置数据源"></a>5.2 设置数据源</h3><ol>
-<li>Grafana -&gt; Configuration -&gt; Date Sources -&gt; Prometheus</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%89%E8%A3%85%E4%B8%80.png" alt="Grafana安装一"></p>
-<ol start="2">
-<li>New dashboard</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%89%E8%A3%85%E4%BA%8C.png" alt="Grafana安装二"></p>
-<ol start="3">
-<li>添加一个监控和CPU内存使用率的仪表盘</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%89%E8%A3%85%E4%B8%89.png" alt="Grafana安装三"></p>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%89%E8%A3%85%E5%9B%9B.png" alt="Grafana安装四"></p>
-<h3 id="5-3-json备份和还原"><a href="#5-3-json备份和还原" class="headerlink" title="5.3 json备份和还原"></a>5.3 json备份和还原</h3><ol>
-<li>备份：dashboard -&gt; Settings -&gt; JSON Model，将里面内容保存为json文件</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/JSON%E5%A4%87%E4%BB%BD.png" alt="JSON备份"></p>
-<ol start="2">
-<li>恢复：Create -&gt; import</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/JSON%E8%BF%98%E5%8E%9F.png" alt="JSON还原"></p>
-<h3 id="5-4-Grafana实现报警功能"><a href="#5-4-Grafana实现报警功能" class="headerlink" title="5.4 Grafana实现报警功能"></a>5.4 Grafana实现报警功能</h3><ol>
-<li>配置Grafana文件</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖和图形显示插件</span></span><br><span class="line">yum -y install libatk-bridge* libXss* libgtk*</span><br><span class="line">grafana-cli plugins install grafana-image-renderer</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改配置</span></span><br><span class="line">vim /etc/grafana/grafana.ini</span><br><span class="line">enabled = true</span><br><span class="line">host = smtp.163.com:25</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">发送报警邮件的邮箱</span></span><br><span class="line">user = chenqiming13@163.com</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">授权码</span></span><br><span class="line">password = QXQALYMTRYRWIOOS</span><br><span class="line">skip_verify = true</span><br><span class="line">from_address = chenqiming13@163.com</span><br><span class="line">from_name = Grafana</span><br><span class="line">systemctl restart grafana-server</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>创建报警规则</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E4%B8%80.png" alt="Grafana实现报警功能一"></p>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E4%BA%8C.png" alt="Grafana实现报警功能二"></p>
-<ol start="3">
-<li>针对具体监控项，设置发送邮件阈值等，这里设置为发现超过阈值起5分钟后触发报警</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E4%B8%89.png" alt="Grafana实现报警功能三"></p>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E5%9B%9B.png" alt="Grafana实现报警功能四"></p>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E4%BA%94.png" alt="Grafana实现报警功能五"></p>
-<p><img src="/2024/02/18/prometheus/Grafana%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%8A%9F%E8%83%BD%E5%85%AD.png" alt="Grafana实现报警功能六"></p>
-<p>![Grafana实现报警功能七](Grafana实现报警功能七.png</p>
-<h2 id="六、Prometheus-Grafana实际案例"><a href="#六、Prometheus-Grafana实际案例" class="headerlink" title="六、Prometheus + Grafana实际案例"></a>六、Prometheus + Grafana实际案例</h2><h3 id="6-1-predict-linear函数实现硬盘监控"><a href="#6-1-predict-linear函数实现硬盘监控" class="headerlink" title="6.1 predict_linear函数实现硬盘监控"></a>6.1 predict_linear函数实现硬盘监控</h3><p>硬盘使用率公式为：（（总容量 - 剩余容量）&#x2F;  总容量）* 100，在Prometheus中表示为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes) * 100</span><br></pre></td></tr></table></figure>
-
-<p>通过df -m可以看出计算出来的值是正确的</p>
-<p><img src="/2024/02/18/prometheus/%E8%AE%A1%E7%AE%97%E7%A1%AC%E7%9B%98%E4%BD%BF%E7%94%A8%E7%8E%87%E4%B8%80.png" alt="计算硬盘使用率一"></p>
-<p>Prometheus提供了一个predict_linear函数可以预计多长时间磁盘爆满，例如当前这1个小时的磁盘可用率急剧下降，这种情况可能导致磁盘很快被写满，这时可以使用该函数，用当前1小时的数据去预测未来几个小时的状态，实现提前报警。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该式子表示用当前1小时的值来预测未来4小时后如果根目录下容量小于0则触发报警</span></span><br><span class="line">predict_linear(node_filesystem_free_bytes &#123;mountpoint =&quot;/&quot;&#125;[1h], 4*3600) &lt; 0</span><br></pre></td></tr></table></figure>
-
-<p>在Grafana添加监控硬盘使用率和预测硬盘使用率的仪表盘</p>
-<p><img src="/2024/02/18/prometheus/%E8%AE%A1%E7%AE%97%E7%A1%AC%E7%9B%98%E4%BD%BF%E7%94%A8%E7%8E%87%E4%BA%8C.png" alt="计算硬盘使用率二"></p>
-<h3 id="6-2-监控硬盘IO"><a href="#6-2-监控硬盘IO" class="headerlink" title="6.2 监控硬盘IO"></a>6.2 监控硬盘IO</h3><p>公式为：（读取时间 &#x2F; 写入时间）&#x2F; 1024 &#x2F; 1024，用rate函数取一分钟内读和写的字节增长率来计算，用Prometheus表示为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((rate(node_disk_read_bytes_total[1m]) + rate(node_disk_written_bytes_total[1m])) / 1024 / 1024) &gt; 0</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E7%9B%91%E6%8E%A7IO%E7%8A%B6%E6%80%81.png" alt="监控IO状态"></p>
-<h3 id="6-3-监控TCP-WAIT状态的数量"><a href="#6-3-监控TCP-WAIT状态的数量" class="headerlink" title="6.3 监控TCP_WAIT状态的数量"></a>6.3 监控TCP_WAIT状态的数量</h3><p>在被监控主机上编写监控脚本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取监控主机名</span></span><br><span class="line">instance_name=`hostname -f | cut -d&#x27;.&#x27; -f1`</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果主机名为localhost，则退出</span></span><br><span class="line">if [ $instance_name == &quot;localhost&quot; ]</span><br><span class="line">then</span><br><span class="line">        echo &quot;不能监控主机名为localhost的主机&quot;</span><br><span class="line">        exit 1</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取TCP WAIT数量</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">抓取TCP WAIT数量，定义为一个新key</span></span><br><span class="line">lable_tcp_wait=&quot;count_netstat_wait_connections&quot;</span><br><span class="line">count_netstat_wait_connections=`netstat -an | grep &#x27;WAIT&#x27; | wc -l`</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上传至pushgateway</span></span><br><span class="line">echo &quot;$lable_tcp_wait $count_netstat_wait_connections&quot; | curl --data-binary @- http://localhost:9091/metrics/job/pushgateway/instance/$instance_name</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="6-4-监控文件描述符使用率"><a href="#6-4-监控文件描述符使用率" class="headerlink" title="6.4 监控文件描述符使用率"></a>6.4 监控文件描述符使用率</h3><p>在linux中，每当进程打开一个文件时，系统就会为其分配一个唯一的整型文件描述符，用来标识这个文件，每个进程默认打开的文件描述符有三个，分别为标准输入、标准输出、标准错误，即stdin、stout、steer，用文件描述符来表示为0、1、2。</p>
-<p>用命令可以查看目前系统的最大文件描述符限制，一般默认设置是1024。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ulimit -n</span><br></pre></td></tr></table></figure>
-
-<p>文件描述符使用率公式为：（已分配的文件描述符数量 &#x2F; 最大文件描述符数量）* 100，在Prometheus中则表示为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(node_filefd_allocated / node_filefd_maximum) * 100</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E7%9B%91%E6%8E%A7%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%BD%BF%E7%94%A8%E7%8E%87.png" alt="监控文件描述符使用率"></p>
-<h3 id="6-5-网络延迟和丢包率监控"><a href="#6-5-网络延迟和丢包率监控" class="headerlink" title="6.5 网络延迟和丢包率监控"></a>6.5 网络延迟和丢包率监控</h3><p>前面我们采用的都是简单的ping + ip地址来进行测试，实际上这样测试发出去的icmp数据包是非常小的，只适合用来测试网络是否连通，因此用以下命令来进行优化：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ping -q ip地址 -s 500 -W 1000 -c 100</span><br><span class="line">-q:不显示指令执行过程，开头和结尾的相关信息除外。</span><br><span class="line">-s:设置数据包的大小。</span><br><span class="line">-W:在等待 timeout 秒后开始执行。</span><br><span class="line">-c:设置完成要求回应的次数。</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/02/18/prometheus/%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E5%92%8C%E4%B8%A2%E5%8C%85%E7%8E%87%E7%9B%91%E6%8E%A7.png" alt="网络延迟和丢包率监控"></p>
-<h3 id="6-6-使用Pageduty实现报警"><a href="#6-6-使用Pageduty实现报警" class="headerlink" title="6.6 使用Pageduty实现报警"></a>6.6 使用Pageduty实现报警</h3><p>Pagerduty是一套付费监控报警系统，经常作为SRE&#x2F;运维人员的监控报警工具，可以和市面上常见的监控工具直接整合。</p>
-<ol>
-<li>创建新service</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E4%B8%80.png" alt="pateduty实现报警一"><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E4%BA%8C.png" alt="pateduty实现报警二"></p>
-<ol start="2">
-<li>在Grafana新建报警渠道，并在仪表盘中设置为Pageduty报警</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E4%B8%89.png" alt="pateduty实现报警三"></p>
-<ol start="3">
-<li>设置报警信息</li>
-</ol>
-<p><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%9B%9B.png" alt="pateduty实现报警四"></p>
 <ol start="4">
-<li>查看是否收到报警</li>
+<li>自增</li>
 </ol>
-<p><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E4%BA%94.png" alt="pateduty实现报警五"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">incr key</span><br></pre></td></tr></table></figure>
+
 <ol start="5">
-<li>当问题解决可以点击已解决</li>
+<li>自减</li>
 </ol>
-<p><img src="/2024/02/18/prometheus/pateduty%E5%AE%9E%E7%8E%B0%E6%8A%A5%E8%AD%A6%E5%85%AD.png" alt="pateduty实现报警六"></p>
-</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/page/9/">Previous</a></div><div class="pagination-next"><a href="/page/11/">Next</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/9/">9</a></li><li><a class="pagination-link is-current" href="/page/10/">10</a></li><li><a class="pagination-link" href="/page/11/">11</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/16/">16</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/avatar.jpeg" alt="Warner"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Warner</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Shenzhen</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">15</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/cqmmm/" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://wiki.sanxian.tech/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">sanxian</span></span><span class="level-right"><span class="level-item tag">wiki.sanxian.tech</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T09:39:48.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/%E9%A6%96%E9%A1%B5/">首页</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/ansible/">Ansible</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/cka/">CKA</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/cisco/">Cisco</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/docker/">Docker</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">February 2024</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/ansible/"><span class="tag">ansible</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cisco/"><span class="tag">cisco</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/elk/"><span class="tag">elk</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/jenkins/"><span class="tag">jenkins</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/k8s/"><span class="tag">k8s</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/kafka/"><span class="tag">kafka</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nexus/"><span class="tag">nexus</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/prometheus/"><span class="tag">prometheus</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web/"><span class="tag">web</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/zookeeper/"><span class="tag">zookeeper</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A6%96%E9%A1%B5/"><span class="tag">首页</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/logo.jpg" alt="Warner&#039;s Wiki" height="28"></a><p class="is-size-7"><span>&copy; 2024 Warner</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decr key</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>自增自减指定数量</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">incrby key number</span><br><span class="line">decrby key number</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>设置值的同时指定生存时间</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setex key seconds value</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>设置值，如果当前 key 不存在如同 set，如果存在则说明都不做</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setex key value</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>在 key 对应的 value 后追加内容</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">append key value</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>查看 value 字符串长度</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strlen key</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-2-hash常用命令"><a href="#2-2-2-hash常用命令" class="headerlink" title="2.2.2 hash常用命令"></a>2.2.2 hash常用命令</h4><ol>
+<li>存储数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hset key field value</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hget key field</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>批量操作</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hmset key1 field1 value1 field2 value2 ...</span><br><span class="line">hmget key1 firle1 field2 ...</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>指定自增</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hincrby key field number</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>设置值，如果当前 key 不存在如同 set，如果存在则说明都不做</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hsetnx key field value</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>检查 field 是否存在</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexists key field</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>删除某个 field</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdel key field1 field2 ...</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>获取当前 hash 结构中的全部 field 和 value</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hgetall key</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>获取当前 hash 结构中的全部 field</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hkeys key</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>获取当前 hash 结构中的全部 value</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hvals key</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>获取当前 hash 中 field 的数量</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hlen key</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-3-list常用命令"><a href="#2-2-3-list常用命令" class="headerlink" title="2.2.3 list常用命令"></a>2.2.3 list常用命令</h4><ol>
+<li>存储数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从左侧插入数据</span></span><br><span class="line">lpush key value1 value2 ...</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从右侧插入数据</span></span><br><span class="line">rpush key value1 value2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果key不存在，什么都不做，如果key存在但不是list结构，也什么都不做</span></span><br><span class="line">lpushx key value1 value2 ...</span><br><span class="line">rpushx key value1 value2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通过索引位置添加value</span></span><br><span class="line">lset key index value</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">左侧弹出数据并移除</span></span><br><span class="line">lpop key</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">右侧弹出数据并移除</span></span><br><span class="line">rpop key</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取一定范围的数据，start从0开始，stop为-1时为最后一个value，-2时为倒数第二个value</span></span><br><span class="line">lrange key start stop</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据索引位置获取value</span></span><br><span class="line">lindex key index</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取整个list的长度</span></span><br><span class="line">llen key</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除list中count个value的值，当count&gt;0，从左向右删除，但count&lt;0，从右向左删除，但count==0，全部删除</span></span><br><span class="line">lrem key count value</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">保留列表中指定范围内的数据，超出这个范围的都会被移除</span></span><br><span class="line">ltrim start stop</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将list1中的最后一个数据弹出，插入到list2中的第一个位置</span></span><br><span class="line">rpoplpush key1 key2</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-set常用命令"><a href="#2-2-4-set常用命令" class="headerlink" title="2.2.4 set常用命令"></a>2.2.4 set常用命令</h4><ol>
+<li>存储数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">value不允许重复，且数据无序排列</span></span><br><span class="line">sadd key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取全部数据</span></span><br><span class="line">smembers key</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">随机获取数据，并移除，可加弹出数量</span></span><br><span class="line">spop key number</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取多个<span class="built_in">set</span>的交集</span></span><br><span class="line">sinter key1 key2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取多个<span class="built_in">set</span>的并集</span></span><br><span class="line">sunion key1 key2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取多个<span class="built_in">set</span>的差集</span></span><br><span class="line">sdiff key1 key2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前<span class="built_in">set</span>是否包含某个值</span></span><br><span class="line">sismember key value</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srem key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-5-zset常用命令"><a href="#2-2-5-zset常用命令" class="headerlink" title="2.2.5 zset常用命令"></a>2.2.5 zset常用命令</h4><ol>
+<li>存储数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">score必须是数值，value不允许重复</span></span><br><span class="line">zadd key score1 value1 score2 value2 ...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改score，如果value存在则增加分数，如果不存在则相当于zadd</span></span><br><span class="line">zincrby key number value</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看指定value的分数</span></span><br><span class="line">zscore key value</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取value数量</span></span><br><span class="line">zcard key</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据score范围查询value数量</span></span><br><span class="line">zcount key min max</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据分数从小到大排序，获取指定范围内的数据，添加了withscores参数会返回value的具体score</span></span><br><span class="line">zrange key start stop withscores</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从大到小</span></span><br><span class="line">zrevrange key start stop withscores</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据分数的范围获取数据，如果不希望包括min和max的值可以用(min max)的方式，最大最小值用±inf表示</span></span><br><span class="line">zrangebyscore key min max withscores [limit,offset,count]</span><br><span class="line">zrevrangebyscore key max min withscores [limit,offset,count]</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除数据</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zrem key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-6-key常用命令"><a href="#2-2-6-key常用命令" class="headerlink" title="2.2.6 key常用命令"></a>2.2.6 key常用命令</h4><ol>
+<li>查看所有key</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keys *</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看某个key是否存在</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exists key</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除key</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del key</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>设置key的生存时间</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">单位为s</span></span><br><span class="line">expire key seconds</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">单位为ms</span></span><br><span class="line">pexpire key milliseconds</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定生存到某个时间点</span></span><br><span class="line">expireat key timestamp</span><br><span class="line">pexpireat key millseconds</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看key的剩余生存时间，返回-2则key不存在，-1则没设置生存时间</span></span><br><span class="line">ttl key</span><br><span class="line">pttl key</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">移除生存时间</span></span><br><span class="line">persist key</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>选择操作的库</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">redis默认有16个库</span></span><br><span class="line">select 0~15</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">移动key到另一个库中</span></span><br><span class="line">move key db</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-7-库的常用命令"><a href="#2-2-7-库的常用命令" class="headerlink" title="2.2.7 库的常用命令"></a>2.2.7 库的常用命令</h4><ol>
+<li>清空当前所在数据库</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flushdb</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>清空所有数据库</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flushdball</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>查看当前库有多少key</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbsize</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>查看最后一次操作的时间</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lastsave</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>实时监控redis接收到的命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monitor</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、Redis配置"><a href="#三、Redis配置" class="headerlink" title="三、Redis配置"></a>三、Redis配置</h2><h3 id="3-1-Redis的AUTH"><a href="#3-1-Redis的AUTH" class="headerlink" title="3.1 Redis的AUTH"></a>3.1 Redis的AUTH</h3><ol>
+<li>docker-compose.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">6379</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>设置 Redis 连接密码</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line">requirepass toortoor</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>进入 Redis 之后都需要输入密码才可以创建 key</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli</span><br><span class="line">auth toortoor</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-Redis的事务"><a href="#3-2-Redis的事务" class="headerlink" title="3.2 Redis的事务"></a>3.2 Redis的事务</h3><p>Redis 事务可以一次执行多个命令， 并且带有以下三个重要的保证：</p>
+<ul>
+<li>批量操作在发送 EXEC 命令前被放入队列缓存</li>
+<li>收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行</li>
+<li>在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中</li>
+</ul>
+<p>一个事务从开始到执行会经历以下几个阶段：</p>
+<ul>
+<li>开始事务：multi</li>
+<li>命令入队：……</li>
+<li>执行事务：exec</li>
+<li>取消事务：discard</li>
+<li>监听：在开启事务之前，先通过 watch 监听事务中要操作的 key，如果在事务过程中有其他的客户端修改了 key，那么事务将会被取消</li>
+</ul>
+<p>事务可以理解为一个打包的批量执行脚本，但批量指令并非原子化的操作，中间某条指令的失败不会导致前面已做指令的回滚，也不会造成后续的指令不做。</p>
+<ol>
+<li>监听</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch name age gander</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>开始事务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multi</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>命令入队</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set name cqm</span><br><span class="line">set age 22</span><br><span class="line">set gander male</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行事务&#x2F;取消事务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec/discard</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-Redis的持久化"><a href="#3-3-Redis的持久化" class="headerlink" title="3.3 Redis的持久化"></a>3.3 Redis的持久化</h3><h4 id="3-3-1-RDB持久化"><a href="#3-3-1-RDB持久化" class="headerlink" title="3.3.1 RDB持久化"></a>3.3.1 RDB持久化</h4><p>Redis 的配置文件位于 Redis 安装目录,	ROB 是默认的持久化机制。</p>
+<ol>
+<li>docker-compose.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">6379</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data:/data</span></span><br><span class="line">    <span class="comment"># 加载redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>redis.conf</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">redis.conf</span></span><br><span class="line"><span class="comment"># 在900秒内有1一个 key 发生了变化，就执行 RDB 持久化</span></span><br><span class="line"><span class="string">save</span> <span class="number">900</span> <span class="number">1</span></span><br><span class="line"><span class="string">save</span> <span class="number">300</span> <span class="number">10</span></span><br><span class="line"><span class="string">save</span> <span class="number">60</span> <span class="number">10000</span></span><br><span class="line"><span class="comment"># 开启RDB持久化</span></span><br><span class="line"><span class="string">rdbchecksum</span> <span class="literal">yes</span></span><br><span class="line"><span class="comment"># RDB持久化名称</span></span><br><span class="line"><span class="string">dbfilename</span> <span class="string">dump.rdb</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>测试持久化</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set name cqm</span><br><span class="line">set age 22</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭redis并保存</span></span><br><span class="line">shutdown save</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>可以看到 data 目录下多了个 rdb 文件，即使 redis 容器重启也不会造成 key 的丢失</li>
+</ol>
+<p><img src="/2024/02/18/redis/redis%E4%BA%8C.png" alt="redis二"></p>
+<h4 id="3-3-2-AOF持久化"><a href="#3-3-2-AOF持久化" class="headerlink" title="3.3.2 AOF持久化"></a>3.3.2 AOF持久化</h4><p>AOF 比起 RDB 有更高的数据安全性，如果同时开启了 AOF 和 RDB，那么前者比后者的优先级更高，且如果先开启了 RDB 在开启 AOF，那么 RDB 中的内容会被 AOF 的内容覆盖。</p>
+<ol>
+<li>redis.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启AOF持久化</span></span><br><span class="line">appendonly yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF文件名</span></span><br><span class="line">appendfilename appendonly.aof</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">AOF持久化执行策略</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">always:每次执行写操作都调用fsync</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">everysec:最多每秒调用一次fsync</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">no:根据环境的不同在不确定的时间调用fsync</span></span><br><span class="line">appendfsync always|everysec|no</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>重启 docker-compose 测试</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set gander male</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">不RDB持久化</span></span><br><span class="line">shutdown nosave</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>可以看到 data 目录下多了个 aof 文件，即 AOF 持久化生成的文件</li>
+</ol>
+<p><img src="/2024/02/18/redis/redis%E4%B8%89.png" alt="redis三"></p>
+<h3 id="3-4-Redis主从架构"><a href="#3-4-Redis主从架构" class="headerlink" title="3.4 Redis主从架构"></a>3.4 Redis主从架构</h3><p>Redis 的主从架构是指 Master 节点负责写操作，而其余的 Slave 节点负责读操作。</p>
+<p><img src="/2024/02/18/redis/redis%E5%9B%9B.png" alt="redis四"></p>
+<ol>
+<li>docker-compose.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis-master:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-master</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7001</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis1.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data1:/data</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis-slave1:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-slave1</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7002</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis2.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data2:/data</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">    <span class="comment"># 连接redis-master容器，并将该容器ip地址映射为master</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis-master:master</span></span><br><span class="line">  <span class="attr">redis-slave2:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-slave2</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7003</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis3.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data3:/data</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis-master:master</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>从节点 redis.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">slaveof &lt;主节点地址&gt; &lt;端口&gt;</span></span><br><span class="line">slaveof master 6379</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启动后进入容器内部通过 <code>info</code> 可看到节点信息</li>
+</ol>
+<p><img src="/2024/02/18/redis/redis%E4%BA%94.png" alt="redis五"></p>
+<h3 id="3-5-Redis哨兵模式"><a href="#3-5-Redis哨兵模式" class="headerlink" title="3.5 Redis哨兵模式"></a>3.5 Redis哨兵模式</h3><p>Redis 的主从架构有一个很明显的问题，就是当 Master 节点出现问题宕机后，那么 Redis 集群就没有可以进行写操作的 Redis 了，而哨兵就可以解决该问题。</p>
+<p>在每个节点中都会有个哨兵与 Redis 进行连接，且哨兵与哨兵之间也会进行连接，如果 Master 节点出现故障宕机了，那么哨兵们就会选出一个 Slave 来作为新的 Master 来提供写的操作。</p>
+<p><img src="/2024/02/18/redis/redis%E5%85%AD.png" alt="redis六"></p>
+<ol>
+<li>docker-compose.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis-master:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-master</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7001</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis1.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data1:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./sentinel1.conf:/data/sentinel.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis-slave1:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-slave1</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7002</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis2.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data2:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./sentinel2.conf:/data/sentinel.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis-master:master</span></span><br><span class="line">  <span class="attr">redis-slave2:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-slave2</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7003</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis3.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data3:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./sentinel3.conf:/data/sentinel.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis-master:master</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Master 节点 sentinel.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以守护进程的方式运行redis</span></span><br><span class="line">daemonize yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定Master节点，sentinel monitor &lt;名称&gt; &lt;ip&gt; &lt;端口&gt; &lt;Slave个数&gt;</span></span><br><span class="line">sentinel monitor master localhost 6379 2</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定哨兵每隔多久检测一次redis主从架构</span></span><br><span class="line">sentinel down-after-milliseconds master 10000</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Slave 节点 sentinel.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">daemonize yes</span><br><span class="line">sentinel monitor master master 6379 2</span><br><span class="line">sentinel down-after-milliseconds master 10000</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>进入容器启动哨兵，当 Master 节点出现问题后，就会在两个 Slave 中选出一个作为新的 Master，而旧的 Master 启动后就会变为新的 Slave</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel /data/sentinel.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-Redis集群"><a href="#3-6-Redis集群" class="headerlink" title="3.6 Redis集群"></a>3.6 Redis集群</h3><p>Redis 集群在保证主从和哨兵的基本功能之外，还能提高 Redis 存储数据的能力，主要的特点如下</p>
+<ul>
+<li>Redis 集群是无中心的</li>
+<li>Redis 集群有ping-pang的机制</li>
+<li>投票机制，集群节点的数量必须是 2n+1</li>
+<li>分配了 16484 个 hash 槽，在存储数据时，会对 key 进行 crc16 的算法，并对 16384 进行取余，通过结果分配到对应的节点上，每个节点都有自己维护的 hash 槽</li>
+<li>每个主节点都要跟一个从节点，但这里的从节点只管备份，不管查询</li>
+<li>集群中半数的节点宕机后，那么集群就瘫痪</li>
+</ul>
+<p><img src="/2024/02/18/redis/redis%E4%B8%83.png" alt="redis七"></p>
+<ol>
+<li>docker-compose.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis1:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis1</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7001</span><span class="string">:7001</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17001</span><span class="string">:17001</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis1.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis2:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis2</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7002</span><span class="string">:7002</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17002</span><span class="string">:17002</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis2.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis3:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis3</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7003</span><span class="string">:7003</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17003</span><span class="string">:17003</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis3.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis4:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis4</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7004</span><span class="string">:7004</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17004</span><span class="string">:17004</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis4.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis5:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis5</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7005</span><span class="string">:7005</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17005</span><span class="string">:17005</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis5.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br><span class="line">  <span class="attr">redis6:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis6</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.9</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7006</span><span class="string">:7006</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">17006</span><span class="string">:17006</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf.d/redis6.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;redis-server&quot;</span>, <span class="string">&quot;/usr/local/redis/redis.conf&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>redis{1..6}.conf，x 为 {1..6}</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定redis端口</span></span><br><span class="line"><span class="string">port</span> <span class="string">700x</span></span><br><span class="line"><span class="comment"># 开启集群</span></span><br><span class="line"><span class="string">cluster-enabled</span> <span class="literal">yes</span></span><br><span class="line"><span class="comment"># 集群信息文件</span></span><br><span class="line"><span class="string">cluster-config-file</span> <span class="string">nodes-700x.conf</span></span><br><span class="line"><span class="comment"># 集群对外ip</span></span><br><span class="line"><span class="string">cluster-announce-ip</span> <span class="number">192.168</span><span class="number">.88</span><span class="number">.135</span></span><br><span class="line"><span class="comment"># 集群对外端口</span></span><br><span class="line"><span class="string">cluster-announce-port</span> <span class="string">700x</span></span><br><span class="line"><span class="comment"># 集群总线端口</span></span><br><span class="line"><span class="string">cluster-announce-bus-port</span> <span class="string">1700x</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>进入任意 reids 容器创建集群</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--cluster-replicas:每个主节点分配的从节点个数</span></span><br><span class="line">redis-cli --cluster create 192.168.88.135:7001 192.168.88.135:7002 192.168.88.135:7003 192.168.88.135:7004 192.168.88.135:7005 192.168.88.135:7006 --cluster-replicas 1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>由于每个主节点都被分配了不同的 hash 槽，所以要在容器内任意切换不同的 redis 节点需要加参数 <code>-c</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 192.168.88.135 -p 7001 -c</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="四、Redis常见问题"><a href="#四、Redis常见问题" class="headerlink" title="四、Redis常见问题"></a>四、Redis常见问题</h2><h3 id="4-1-Redis的删除策略"><a href="#4-1-Redis的删除策略" class="headerlink" title="4.1 Redis的删除策略"></a>4.1 Redis的删除策略</h3><p>当 key 的生存时间到了，Redis 并不会立即删除该 key，而是遵守以下删除策略来进行删除</p>
+<ul>
+<li>定期删除：Redis 每隔一段时间就回去查看设置了生存时间的 key，默认是 100ms 查看 3 个 key</li>
+<li>惰性删除：当用户去查询已经超过了生存时间的 key，Redis 会先查看该 key 是否已经超过了生存时间，如果超过，那么 Redis 会将该 key 删除并给用户返回一个空值</li>
+</ul>
+<h3 id="4-2-Redis的淘汰机制"><a href="#4-2-Redis的淘汰机制" class="headerlink" title="4.2 Redis的淘汰机制"></a>4.2 Redis的淘汰机制</h3><p>当 Redis 内存满的时候添加了一个新的数据，那么就会执行 Redis 的淘汰机制，通过 <code>maxmemory-policy</code> 来设置，参数如下</p>
+<ol>
+<li><p>volatile-lru：当内存不足时，会删除一个设置了生存时间且最近最少使用的 key</p>
+</li>
+<li><p>allkeys-lru：当内存不足时，会删除一个设置了最近最少使用的 key</p>
+</li>
+<li><p>volatile-lfu：当内存不足时，会删除一个设置了生存时间且最近使用频率最低的 key</p>
+</li>
+<li><p>allkeys-lfu：当内存不足时，会删除一个设置了最近使用频率最低的 key</p>
+</li>
+<li><p>volatile-random：当内存不足时，会随机删除一个设置了生存时间的 key</p>
+</li>
+<li><p>allkeys-random：当内存不足时，会随机删除一个 key</p>
+</li>
+<li><p>volatile-ttl：当内存不足时，会删除一个生存时间最少的 key</p>
+</li>
+<li><p>noeviction：内存不足时，直接报错</p>
+</li>
+</ol>
+<h3 id="4-3-缓存问题"><a href="#4-3-缓存问题" class="headerlink" title="4.3 缓存问题"></a>4.3 缓存问题</h3><p><strong>缓存穿透</strong></p>
+<p>当客户查询的数据 Redis 中没有，数据库中也没有，且请求量特别大时，就会导致数据库的压力过大，解决方法如下</p>
+<ul>
+<li>根据 id 查询时，如果 id 是自增的，那么可以将最大的 id 放到 Reids 中，当查询数据时直接对比 id 即可</li>
+<li>如果 id 不是 int 型，那么可以将全部的 id 放入 set 中，用户查询之前可以先到 set 查看是否有该 id</li>
+<li>获取用户的 ip 地址，对该地址进行访问限制</li>
+</ul>
+<p><strong>缓存击穿</strong></p>
+<p>当用户查询的是热点数据时，那么并发量肯定是很高的，当 Redis 中的热点数据过期了，那么数据库的压力就会很大，甚至宕机，解决方法如下</p>
+<ul>
+<li>在访问热点数据时，缓存中没有的时候，可以添加一把锁，让几个请求去访问数据库，避免数据库宕机</li>
+<li>把热点数据的生存时间去掉</li>
+</ul>
+<p><strong>缓存雪崩</strong></p>
+<p>当大量缓存同时到期时，导致请求都去到了数据库，也很容易导致数据库宕机，解决方法如下</p>
+<ul>
+<li>对缓存中的数据设置一个随机的生存时间，避免同时过期</li>
+</ul>
+<p><strong>缓存倾斜</strong></p>
+<p>如果将热点数据放在集群中的某一 Redis 节点上时，那么大量的数据都会去到该 Redis 节点，导致节点宕机，解决方法如下</p>
+<ul>
+<li>主从架构，准备大量的从节点</li>
+<li>在 Tomcat 中做 JVM 缓存，在查询 Redis 前先查询 JVM 缓存</li>
+</ul>
+</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/page/9/">Previous</a></div><div class="pagination-next"><a href="/page/11/">Next</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/9/">9</a></li><li><a class="pagination-link is-current" href="/page/10/">10</a></li><li><a class="pagination-link" href="/page/11/">11</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/page/16/">16</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://www.gravatar.com/avatar/846da324716ae0af205ef4baddb1afdd?s=128" alt="Warner"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Warner</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Shenzhen</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">15</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/cqmmm/" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://wiki.sanxian.tech/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">sanxian</span></span><span class="level-right"><span class="level-item tag">wiki.sanxian.tech</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T09:39:48.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/%E9%A6%96%E9%A1%B5/">首页</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/cisco/">Cisco</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/cka/">CKA</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/docker/">Docker</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-18T08:06:41.000Z">2024-02-18</time></p><p class="title"><a href="/2024/02/18/kafka/">Kafka</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">February 2024</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/ansible/"><span class="tag">ansible</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/cisco/"><span class="tag">cisco</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/elk/"><span class="tag">elk</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/jenkins/"><span class="tag">jenkins</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/k8s/"><span class="tag">k8s</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/kafka/"><span class="tag">kafka</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nexus/"><span class="tag">nexus</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/prometheus/"><span class="tag">prometheus</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web/"><span class="tag">web</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/zookeeper/"><span class="tag">zookeeper</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A6%96%E9%A1%B5/"><span class="tag">首页</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/logo.jpg" alt="Warner&#039;s Wiki" height="28"></a><p class="is-size-7"><span>&copy; 2024 Warner</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/cqmmm/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
